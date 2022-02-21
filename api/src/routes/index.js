@@ -2,7 +2,7 @@ const { Router } = require("express");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const axios = require("axios");
-
+const { Character, Occupation } = require("../db");
 const router = Router();
 
 // Configurar los routers
@@ -23,6 +23,43 @@ const getApiInfo = async () => {
       //appearance: [...el.appearance],
     };
   });
+  return apiInfo;
 };
+
+const getDbInfo = async () => {
+  return await Character.findAll({
+    include: {
+      model: Occupation,
+      attributes: ["name"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
+};
+
+const getAllCharacters = async () => {
+  const apiInfo = await getApiInfo();
+  const dbInfo = await getDbInfo();
+  const infoTotal = apiInfo.concat(dbInfo);
+  return infoTotal;
+};
+
+router.get("/characters", async (req, res) => {
+  const name = req.query.name;
+
+  let charactersTotal = await getAllCharacters();
+
+  if (name) {
+    let characterName = await charactersTotal.filter((el) =>
+      el.name.toLowerCase().includes(name.toLowerCase())
+    );
+    characterName.length
+      ? res.status(200).send(characterName)
+      : res.status(400).send("No esta tu personaje loco");
+  } else {
+    res.status(200).send(charactersTotal);
+  }
+});
 
 module.exports = router;
