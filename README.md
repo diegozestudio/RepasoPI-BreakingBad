@@ -8,7 +8,7 @@
   <img height="200" src="./bb.png" />
 </p>
 
-## Objetivos del Proyecto ----
+## Objetivos del Proyecto / llegar clean el PI
 
 - Construir una App utlizando React, Redux, Node y Sequelize.
 - Afirmar y conectar los conceptos aprendidos en la carrera.
