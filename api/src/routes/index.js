@@ -62,4 +62,36 @@ router.get("/characters", async (req, res) => {
   }
 });
 
+router.get("/occupations", async (req, res) => {
+  const occupationsApi = await axios.get(
+    "https://breakingbadapi.com/api/characters"
+  );
+  const occupation = occupationsApi.data.map((char) => char.occupation);
+  const occupationsEach = [...new Set(occupation.flat())];
+  occupationsEach.forEach((occupation) => {
+    Occupation.findOrCreate({
+      where: { name: occupation },
+    });
+  });
+  const allOccupations = await Occupation.findAll();
+  res.send(allOccupations);
+});
+
+router.post("/character", async (req, res) => {
+  let { name, nickname, birthday, image, status, createdInDb, occupation } =
+    req.body;
+  let newCharacter = await Character.create({
+    name,
+    nickname,
+    birthday,
+    image,
+    status,
+    createdInDb,
+  });
+  let occupationDb = await Occupation.findAll({
+    where: { name: occupation },
+  });
+  newCharacter.addOccupation(occupationDb);
+  res.send("Personaje creado con exito");
+});
 module.exports = router;
