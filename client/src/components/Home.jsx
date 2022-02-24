@@ -5,6 +5,7 @@ import {
   getCharacters,
   filterCharactersByStatus,
   filterCreated,
+  orderByName,
 } from "../redux/actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
@@ -13,11 +14,11 @@ import Paginado from "./Paginado";
 export default function Home() {
   const dispatch = useDispatch();
   const allCharacters = useSelector((state) => state.characters);
+  const [orden, setOrden] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setCardPerPage] = useState(6);
-  const indexLastCard = currentPage * cardsPerPage; //6 * 1 = 6
-  const indexFisrtCard = indexLastCard - cardsPerPage; //6 - 6 = 0
-  //    desde 0       a      6
+  const indexLastCard = currentPage * cardsPerPage;
+  const indexFisrtCard = indexLastCard - cardsPerPage;
   const currentCards = allCharacters.slice(indexFisrtCard, indexLastCard);
 
   const paginado = (pagNumber) => {
@@ -37,6 +38,13 @@ export default function Home() {
     dispatch(filterCreated(e.target.value));
   };
 
+  function handleSort(e) {
+    e.preventDefault();
+    dispatch(orderByName(e.target.value));
+    setCurrentPage(1);
+    setOrden(`Ordenado ${e.target.value}`);
+  }
+
   useEffect(() => {
     dispatch(getCharacters());
   }, [dispatch]);
@@ -46,7 +54,7 @@ export default function Home() {
       <Link to="/character">Crear personaje</Link>
       <h1>Componente Home</h1>
       <button onClick={handleClick}>Volver a cargar personajes</button>
-      <select>
+      <select onChange={handleSort}>
         <option value="asc">Ascendente</option>
         <option value="desc">Descendente</option>
       </select>
