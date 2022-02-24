@@ -94,4 +94,20 @@ router.post("/character", async (req, res) => {
   newCharacter.addOccupation(occupationDb);
   res.send("Personaje creado con exito");
 });
+
+router.get("/characters/:id", async (req, res) => {
+  const {id} = req.params;
+
+  const charactersTotal = await getAllCharacters();
+
+  if (id) {
+    let characterFind = await charactersTotal.find(
+      (character) => character.id === Number(id)
+    );
+    characterFind
+      ? res.status(200).json(characterFind)
+      : res.status(400).json("No encontre el personaje");
+  }
+});
+
 module.exports = router;
