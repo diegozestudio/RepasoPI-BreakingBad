@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import Paginado from "./Paginado";
+import SearchBar from "./SearchBar";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ export default function Home() {
   return (
     <div>
       <Link to="/character">Crear personaje</Link>
+      <SearchBar />
       <h1>Componente Home</h1>
       <button onClick={handleClick}>Volver a cargar personajes</button>
       <select onChange={handleSort}>

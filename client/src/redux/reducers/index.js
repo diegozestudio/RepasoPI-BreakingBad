@@ -3,6 +3,7 @@ import {
   FILTER_BY_STATUS,
   FILTER_CREATED,
   ORDER_BY_NAME,
+  GET_NAME_CH,
 } from "../actions";
 
 const initialState = {
@@ -18,6 +19,12 @@ function rootReducer(state = initialState, action) {
         characters: action.payload,
         allCharacters: action.payload,
       };
+    case GET_NAME_CH:
+      return{
+        ...state,
+        characters: action.payload
+      }
+
     case FILTER_BY_STATUS:
       const allCharacters = state.allCharacters;
       const statusFiltered =
