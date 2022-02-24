@@ -78,13 +78,13 @@ router.get("/occupations", async (req, res) => {
 });
 
 router.post("/character", async (req, res) => {
-  let { name, nickname, birthday, image, status, createdInDb, occupation } =
+  let { name, nickname, birthday, img, status, createdInDb, occupation } =
     req.body;
   let newCharacter = await Character.create({
     name,
     nickname,
     birthday,
-    image,
+    img,
     status,
     createdInDb,
   });
@@ -96,7 +96,7 @@ router.post("/character", async (req, res) => {
 });
 
 router.get("/characters/:id", async (req, res) => {
-  const {id} = req.params;
+  const { id } = req.params;
 
   const charactersTotal = await getAllCharacters();
 

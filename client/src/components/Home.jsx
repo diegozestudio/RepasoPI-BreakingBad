@@ -74,7 +74,7 @@ export default function Home() {
               <Link to={`/home/${char.id}`}>
                 <Card
                   name={char.name}
-                  image={char.img}
+                  img={char.img}
                   nickname={char.nickname}
                 />
               </Link>
