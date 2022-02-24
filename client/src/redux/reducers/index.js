@@ -4,11 +4,14 @@ import {
   FILTER_CREATED,
   ORDER_BY_NAME,
   GET_NAME_CH,
+  POST_CH,
+  GET_OCUPATIONS,
 } from "../actions";
 
 const initialState = {
   characters: [],
   allCharacters: [],
+  occupations: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -20,10 +23,20 @@ function rootReducer(state = initialState, action) {
         allCharacters: action.payload,
       };
     case GET_NAME_CH:
-      return{
+      return {
         ...state,
-        characters: action.payload
-      }
+        characters: action.payload,
+      };
+    case POST_CH:
+      return {
+        ...state,
+      };
+
+    case GET_OCUPATIONS:
+      return {
+        ...state,
+        occupations: action.payload,
+      };
 
     case FILTER_BY_STATUS:
       const allCharacters = state.allCharacters;
