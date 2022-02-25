@@ -6,10 +6,12 @@ import {
   GET_NAME_CH,
   POST_CH,
   GET_OCUPATIONS,
+  GET_DETAIL,
 } from "../actions";
 
 const initialState = {
   characters: [],
+  detail: [],
   allCharacters: [],
   occupations: [],
 };
@@ -30,6 +32,12 @@ function rootReducer(state = initialState, action) {
     case POST_CH:
       return {
         ...state,
+      };
+
+    case GET_DETAIL:
+      return {
+        ...state,
+        detail: action.payload,
       };
 
     case GET_OCUPATIONS:

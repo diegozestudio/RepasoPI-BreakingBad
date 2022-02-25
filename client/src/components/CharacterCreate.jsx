@@ -3,10 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { getOcupations, postCharacter } from "../redux/actions";
 
+const validate = (input) => {
+  let errors = {};
+
+  !input.name && (errors.name = "Se necesita un nombre");
+  !input.nickname && (errors.nickname = "Se necesita un nickname");
+
+  return errors;
+};
+
 function CharacterCreate() {
   const dispatch = useDispatch();
   const history = useHistory();
   const occupations = useSelector((state) => state.occupations);
+  const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
     name: "",
     nickname: "",
@@ -21,6 +31,12 @@ function CharacterCreate() {
       ...input,
       [e.target.name]: e.target.value,
     });
+    setErrors(
+      validate({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
   };
 
   const handleCheck = (e) => {
@@ -30,6 +46,13 @@ function CharacterCreate() {
         status: e.target.value,
       });
     }
+  };
+
+  const handleDelete = (e) => {
+    setInput({
+      ...input,
+      occupation: input.occupation.filter((c) => c !== e.target.name),
+    });
   };
 
   const handleSelect = (e) => {
@@ -73,6 +96,7 @@ function CharacterCreate() {
             name="name"
             onChange={handleChange}
           />
+          {errors.name && <span>{errors.name} </span>}
         </div>
         <div>
           <label>Nickname</label>
@@ -82,6 +106,7 @@ function CharacterCreate() {
             name="nickname"
             onChange={handleChange}
           />
+          {errors.nickname && <span>{errors.nickname} </span>}
         </div>
         <div>
           <label>Imagen</label>
@@ -138,11 +163,24 @@ function CharacterCreate() {
           })}
         </select>
         <hr />
-        <ul>
-          <li>{input.occupation.map((oc) => `${oc}, `)}</li>
-        </ul>
-        <button type="submit">Crear Personaje</button>
+
+        {errors.name || (errors.nickname && !input.name) || !input.nickname ? (
+          <button type="submit" disabled="true">
+            Crear Personaje
+          </button>
+        ) : (
+          <button type="submit">Crear Personaje</button>
+        )}
       </form>
+
+      {input.occupation.map((oc) => (
+        <div>
+          <p>{oc}</p>
+          <button name={oc} onClick={handleDelete}>
+            X
+          </button>
+        </div>
+      ))}
     </div>
   );
 }

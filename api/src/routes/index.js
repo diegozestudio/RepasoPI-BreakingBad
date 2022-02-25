@@ -30,7 +30,7 @@ const getDbInfo = async () => {
   return await Character.findAll({
     include: {
       model: Occupation,
-      attributes: ["name"],
+      attributes: ["name", "id"],
       through: {
         attributes: [],
       },
@@ -76,6 +76,7 @@ router.get("/occupations", async (req, res) => {
   const allOccupations = await Occupation.findAll();
   res.send(allOccupations);
 });
+//[]
 
 router.post("/character", async (req, res) => {
   let { name, nickname, birthday, img, status, createdInDb, occupation } =

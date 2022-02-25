@@ -6,11 +6,26 @@ export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const GET_NAME_CH = "GET_NAME_CH";
 export const GET_OCUPATIONS = "GET_OCUPATIONS";
 export const POST_CH = "POST_CH";
+export const GET_DETAIL = "GET DETAIL";
 
 export function getCharacters() {
   return async function (dispatch) {
     let json = await axios("http://localhost:3001/characters");
     return dispatch({ type: GET_CHARACTERS, payload: json.data });
+  };
+}
+
+export function getDetail(id) {
+  return async function (dispatch) {
+    try {
+      const json = await axios('http://localhost:3001/characters/' + id);
+      return dispatch({
+        type: GET_DETAIL,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log("ERRROR", error);
+    }
   };
 }
 export function getOcupations() {
@@ -38,9 +53,8 @@ export function getNameCharacters(payload) {
 
 export function postCharacter(payload) {
   return async function (dispatch) {
-   
-      const json = await axios.post("http://localhost:3001/character", payload);
-      return json
+    const json = await axios.post("http://localhost:3001/character", payload);
+    return json;
   };
 }
 
