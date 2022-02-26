@@ -150,8 +150,17 @@ function CharacterCreate() {
             Desconocido
             <input
               type="checkbox"
-              value="Unknow"
-              name="Unknow"
+              value="Unknown"
+              name="Unknown"
+              onChange={handleCheck}
+            />
+          </label>
+          <label>
+            Presuntamente muerto
+            <input
+              type="checkbox"
+              value="Presumed dead"
+              name="Presumed dead"
               onChange={handleCheck}
             />
           </label>

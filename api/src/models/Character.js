@@ -28,7 +28,6 @@ module.exports = (sequelize) => {
     },
     img: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     createdInDb: {
       type: DataTypes.BOOLEAN,
