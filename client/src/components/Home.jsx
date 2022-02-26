@@ -15,15 +15,39 @@ import SearchBar from "./SearchBar";
 export default function Home() {
   const dispatch = useDispatch();
   const allCharacters = useSelector((state) => state.characters);
-  const [orden, setOrden] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage, setCardPerPage] = useState(6);
-  const indexLastCard = currentPage * cardsPerPage;
-  const indexFisrtCard = indexLastCard - cardsPerPage;
+  const [estados, setEstados] = useState({
+    orden: "",
+    currentPage: 1,
+    cardsPerPage: 6,
+    pageNumberLimit: 5,
+    maxPageNumberLimit: 5,
+    minPageNumberLimit: 0,
+  });
+  const indexLastCard = estados.currentPage * estados.cardsPerPage;
+  const indexFisrtCard = indexLastCard - estados.cardsPerPage;
   const currentCards = allCharacters.slice(indexFisrtCard, indexLastCard);
 
-  const paginado = (pagNumber) => {
-    setCurrentPage(pagNumber);
+  // const paginado = (pagNumber) => {
+  //   // setCurrentPage(pagNumber);
+  //   setEstados({ ...estados, currentPage: pagNumber });
+  // };
+  const paginado = (e) => {
+    console.log(estados.currentPage);
+
+    setEstados({ ...estados, currentPage: e.target.id });
+    console.log(estados.currentPage);
+  };
+  const paginadoNext = (e) => {
+    console.log(estados.currentPage);
+
+    setEstados({ ...estados, currentPage: estados.currentPage + 1 });
+    console.log(estados.currentPage);
+  };
+  const paginadoPrev = (e) => {
+    console.log(estados.currentPage);
+
+    setEstados({ ...estados, currentPage: estados.currentPage - 1 });
+    console.log(estados.currentPage);
   };
 
   const handleClick = (e) => {
@@ -42,8 +66,11 @@ export default function Home() {
   function handleSort(e) {
     e.preventDefault();
     dispatch(orderByName(e.target.value));
-    setCurrentPage(1);
-    setOrden(`Ordenado ${e.target.value}`);
+    // setCurrentPage(1);
+    setEstados({ ...estados, currentPage: 1 });
+
+    // setOrden(`Ordenado ${e.target.value}`);
+    setEstados({ ...estados, orden: `Ordenado ${e.target.value}` });
   }
 
   useEffect(() => {
@@ -73,9 +100,10 @@ export default function Home() {
         <option value="api">Existentes</option>
       </select>
       <Paginado
-        cardsPerPage={cardsPerPage}
-        allCharacters={allCharacters.length}
+        estados={estados}
         paginado={paginado}
+        next={paginadoNext}
+        prev={paginadoPrev}
       />
       {allCharacters &&
         currentCards.map((char) => {
