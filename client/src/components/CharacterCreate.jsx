@@ -84,7 +84,7 @@ function CharacterCreate() {
   return (
     <div>
       <Link to="/home">
-        <button>Volver</button>{" "}
+        <button>Volver</button>
       </Link>
       <h1>Crea tu personaje</h1>
       <form onSubmit={handleSubmit}>
@@ -138,7 +138,7 @@ function CharacterCreate() {
             />
           </label>
           <label>
-            Muerto{" "}
+            Muerto
             <input
               type="checkbox"
               value="Deceased"
@@ -147,7 +147,7 @@ function CharacterCreate() {
             />
           </label>
           <label>
-            Desconocido{" "}
+            Desconocido
             <input
               type="checkbox"
               value="Unknow"
@@ -165,7 +165,7 @@ function CharacterCreate() {
         <hr />
 
         {errors.name || (errors.nickname && !input.name) || !input.nickname ? (
-          <button type="submit" disabled="true">
+          <button type="submit" disabled={true}>
             Crear Personaje
           </button>
         ) : (

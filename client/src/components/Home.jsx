@@ -81,10 +81,14 @@ export default function Home() {
         currentCards.map((char) => {
           return (
             <div key={char.id}>
-              <Link to={`/home/${char.id}`}>
+              <Link to={`/characters/${char.id}`}>
                 <Card
                   name={char.name}
-                  img={char.img ? char.img : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}
+                  img={
+                    char.img
+                      ? char.img
+                      : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                  }
                   nickname={char.nickname}
                 />
               </Link>

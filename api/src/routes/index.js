@@ -30,7 +30,7 @@ const getDbInfo = async () => {
   return await Character.findAll({
     include: {
       model: Occupation,
-      attributes: ["name", "id"],
+      attributes: ["name"],
       through: {
         attributes: [],
       },
@@ -103,7 +103,7 @@ router.get("/characters/:id", async (req, res) => {
 
   if (id) {
     let characterFind = await charactersTotal.find(
-      (character) => character.id === Number(id)
+      (character) => String(character.id) === id
     );
     characterFind
       ? res.status(200).json(characterFind)

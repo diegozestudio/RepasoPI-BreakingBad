@@ -12,9 +12,8 @@ function App() {
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/character" component={CharacterCreate} />
-        <Route exact path="/home/:id" component={Detail} />
+        <Route exact path="/characters/:id" component={Detail} />
       </div>
-      
     </BrowserRouter>
   );
 }

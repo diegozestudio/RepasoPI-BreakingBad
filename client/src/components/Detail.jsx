@@ -15,18 +15,17 @@ function Detail(props) {
   }, [dispatch]);
 
   return (
-      <div>
-        {console.log(myCh)}
+    <div>
       {myCh ? (
         <div>
           <h1> Soy {myCh.name} </h1>
           <img src={myCh.img} alt="ch img" width="500px" height="300px" />
           <h2>Status: {myCh.status} </h2>
           <p>
-            Status:{" "}
+            Status:
             {!myCh.createdInDb
               ? myCh.occupation + " "
-              : myCh.occupations.map((el) => el.name + " ")}{" "}
+              : myCh.occupations.map((el) => el.name + " ")}
           </p>
         </div>
       ) : (
